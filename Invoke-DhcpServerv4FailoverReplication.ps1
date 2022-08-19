@@ -1,0 +1,1 @@
+﻿Invoke-DhcpServerv4FailoverReplication -ScopeId (Get-DhcpServerv4Failover).ScopeId -Force
