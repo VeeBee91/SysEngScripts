@@ -12,8 +12,8 @@ $dnssuffix = "xxxx.xxxx.com.au"
 foreach ($network in $networkList) {
     $net = $network.Network.Substring(0, $network.Network.lastIndexOf('.'))
     [IPAddress] $subnet = 0;
-    $subnet.Address = ([UInt32]::MaxValue -1) -shl (32 - [int]$network.Network.Split('/')[1]) -shr (32 - [int]$network.Network.Split('/')[1])
-    Add-DhcpServerv4Scope -Name $network.Name -StartRange "$net.50" -EndRange "$net.249" -SubnetMask $subnet.IPAddressToString -State InActive -LeaseDuration 8:00:00
+    $subnet.Address = ([UInt32]::MaxValue) -shl (32 - [int]$network.Network.Split('/')[1]) -shr (32 - [int]$network.Network.Split('/')[1])
+    Add-DhcpServerv4Scope -Name $network.Name -StartRange "$net.50" -EndRange "$net.249" -SubnetMask $subnet.IPAddressToString -State InActive -LeaseDuration 8.00:00:00
     if($network.Name -like "*guest*") {
         Set-DhcpServerv4OptionValue -ScopeId "$net.0" -OptionId 6 -Value $guestDns
     } else {       
